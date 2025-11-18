@@ -103,7 +103,7 @@ const Index = () => {
                 <p className="text-sm text-gray-600">Маникюрный салон</p>
               </div>
             </div>
-            <nav className="hidden md:flex gap-2">
+            <nav className="hidden md:flex gap-2 items-center">
               <Button
                 variant={activeSection === 'booking' ? 'default' : 'ghost'}
                 onClick={() => setActiveSection('booking')}
@@ -132,6 +132,17 @@ const Index = () => {
               >
                 Контакты
               </Button>
+              <div className="ml-2 pl-2 border-l border-gray-200">
+                <Button
+                  variant="outline"
+                  onClick={() => window.location.href = '/admin'}
+                  className="rounded-full"
+                  size="sm"
+                >
+                  <Icon name="Settings" size={16} className="mr-1" />
+                  Админ
+                </Button>
+              </div>
             </nav>
           </div>
         </div>
