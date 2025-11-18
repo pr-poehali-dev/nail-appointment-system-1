@@ -75,10 +75,30 @@ const Index = () => {
     }
   };
 
-  const handleBooking = () => {
+  const handleBooking = async () => {
     if (!clientName || !clientPhone || !selectedSlot) {
       toast.error('Пожалуйста, заполните все поля');
       return;
+    }
+
+    const bookingData = {
+      clientName,
+      clientPhone,
+      date: selectedDate?.toLocaleDateString('ru-RU'),
+      time: selectedSlot,
+      service: 'Услуга салона'
+    };
+
+    try {
+      await fetch('https://functions.poehali.dev/e8096482-6342-4426-ba10-26be5ece1578', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingData),
+      });
+    } catch (error) {
+      console.log('Ошибка отправки уведомления:', error);
     }
 
     toast.success('Запись успешно создана! Мы свяжемся с вами для подтверждения');

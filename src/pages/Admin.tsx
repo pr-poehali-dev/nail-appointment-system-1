@@ -61,7 +61,7 @@ const Admin = () => {
   });
 
   const handleLogin = () => {
-    if (loginPassword === 'admin123') {
+    if (loginPassword === 'QASW25Ol23') {
       setIsAuthenticated(true);
       toast.success('Добро пожаловать в админ-панель!');
     } else {
@@ -85,7 +85,7 @@ const Admin = () => {
     toast.success('Статус обновлен');
   };
 
-  const handleAddBooking = () => {
+  const handleAddBooking = async () => {
     if (!newBooking.date || !newBooking.time || !newBooking.clientName || !newBooking.clientPhone) {
       toast.error('Заполните все обязательные поля');
       return;
@@ -100,6 +100,26 @@ const Admin = () => {
       service: newBooking.service || 'Не указано',
       status: 'confirmed',
     };
+
+    const notificationData = {
+      clientName: booking.clientName,
+      clientPhone: booking.clientPhone,
+      date: new Date(booking.date).toLocaleDateString('ru-RU'),
+      time: booking.time,
+      service: booking.service
+    };
+
+    try {
+      await fetch('https://functions.poehali.dev/e8096482-6342-4426-ba10-26be5ece1578', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(notificationData),
+      });
+    } catch (error) {
+      console.log('Ошибка отправки уведомления:', error);
+    }
 
     setBookings([...bookings, booking]);
     setShowAddBooking(false);
@@ -181,7 +201,7 @@ const Admin = () => {
           </div>
 
           <p className="text-xs text-gray-500 text-center mt-6">
-            Демо-пароль: admin123
+            Пароль для входа установлен владельцем
           </p>
         </Card>
       </div>

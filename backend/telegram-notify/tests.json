@@ -1,0 +1,29 @@
+{
+  "tests": [
+    {
+      "name": "Test OPTIONS for CORS",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200,
+      "expectedBody": {},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test notification with valid data",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "clientName": "Тестовый Клиент",
+        "clientPhone": "+7 (999) 123-45-67",
+        "date": "2025-01-25",
+        "time": "14:00",
+        "service": "Маникюр + гель-лак"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": "boolean"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
